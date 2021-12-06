@@ -1,0 +1,19 @@
+
+  this.http.get(imageUrl, {
+      responseType: 'blob',
+    })
+      .subscribe(res => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          var base64data = reader.result;
+          console.log(base64data);
+          this.path = base64data;
+          const downloadLink = document.createElement("a");
+          downloadLink.setAttribute('href', this.path);
+          downloadLink.setAttribute('download', 'Was-news' + res.type.slice(res.type.indexOf('/') + 1, 100));
+          downloadLink.click();
+        }
+        reader.readAsDataURL(res);
+        console.log(res.type.slice(res.type.indexOf('/') + 1, 100))
+      });
+
